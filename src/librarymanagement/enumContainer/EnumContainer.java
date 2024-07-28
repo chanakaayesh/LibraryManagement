@@ -22,7 +22,26 @@ public class EnumContainer {
     
     public enum DaoType{
         
-        ITEM,CUSTOMER,ORDER,ORDER_DETAILS;
+        MEMBER,USER,BOOKCATEGORY,BOOK,BORROWINGBOOK;
     }
     
+    public enum ServiceType{
+     MEMBER,USER,BOOKCATEGORY,BOOK,BORROWINGBOOK;
+    }
+    
+    public enum databaseDateStatus{
+        SUCCESS("SUCCES"),
+        FAIL("FAIL");
+        
+        private String value;
+        
+        private databaseDateStatus (String value){
+            this.value =value;
+        }
+        
+        public String getValue(){
+            return value;
+        }
+        
+    }
 }

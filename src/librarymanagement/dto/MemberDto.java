@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package librarymanagement.entity;
+package librarymanagement.dto;
+
+import librarymanagement.entity.*;
 
 /**
  *
  * @author ayesh
  */
-public class MemberEntity {
+public class MemberDto {
     
    private int serialNumber ;
    private String memberId ;
@@ -16,9 +18,10 @@ public class MemberEntity {
    private String firstName ;
    private int age;
    private String address ;
-   
 
-    public MemberEntity(int serialNumber, String memberId, String lastName, String firstName, int age, String address) {
+   private UserDto user;
+
+    public MemberDto(int serialNumber, String memberId, String lastName, String firstName, int age, String address, UserDto user) {
         this.serialNumber = serialNumber;
         this.memberId = memberId;
         this.lastName = lastName;
@@ -26,6 +29,7 @@ public class MemberEntity {
         this.age = age;
         this.address = address;
        
+        this.user = user;
     }
 
     public int getSerialNumber() {
@@ -78,11 +82,21 @@ public class MemberEntity {
 
   
 
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
-        return "MemberEntity{" + "serialNumber=" + serialNumber + ", memberId=" + memberId + ", lastName=" + lastName + ", firstName=" + firstName + ", age=" + age + ", address=" + address + '}';
+        return "MemberDto{" + "serialNumber=" + serialNumber + ", memberId=" + memberId + ", lastName=" + lastName + ", firstName=" + firstName + ", age=" + age + ", address=" + address + ", user=" + user + '}';
     }
+
    
+    
    
    
     

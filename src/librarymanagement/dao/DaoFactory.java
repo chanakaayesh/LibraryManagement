@@ -4,6 +4,7 @@
  */
 package librarymanagement.dao;
 
+import librarymanagement.dao.custome.impl.MemberDaoImpl;
 import librarymanagement.enumContainer.EnumContainer;
 
 /**
@@ -25,20 +26,25 @@ public class DaoFactory {
     
     public SuperDao getDao(EnumContainer.DaoType type){
         switch (type) {
-            case ITEM:
+            case MEMBER:
+                
+               return new MemberDaoImpl();
+               
+             case USER:
                 
                return null;
                
-             case CUSTOMER:
+               case BOOK:
                 
                return null;
                
-               case ORDER:
+               case  BOOKCATEGORY:
                 
                return null;
                
-               case ORDER_DETAILS:
-                
+               
+               case  BORROWINGBOOK:
+               
                return null;
       
             default:

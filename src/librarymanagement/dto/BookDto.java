@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package librarymanagement.entity;
+package librarymanagement.dto;
 
+import librarymanagement.entity.*;
 import java.util.Date;
 
 /**
  *
  * @author ayesh
  */
-public class BookEntity {
+public class BookDto {
     
   private int  serialNumber ;
   private String  bookId ;
@@ -20,7 +21,7 @@ public class BookEntity {
   private Date  publishDate ;
   private int itemQuantity;
 
-    public BookEntity(int serialNumber, String bookId, String categoryId, String author, String bookTitle, Date publishDate, int itemQuantity) {
+    public BookDto(int serialNumber, String bookId, String categoryId, String author, String bookTitle, Date publishDate, int itemQuantity) {
         this.serialNumber = serialNumber;
         this.bookId = bookId;
         this.categoryId = categoryId;
