@@ -11,6 +11,8 @@ import librarymanagement.entity.MemberEntity;
  *
  * @author ayesh
  */
-public interface MemberDao  extends CrudDao<MemberEntity, Integer> {
+public interface MemberDao  extends CrudDao<MemberEntity, String> {
+
+    public String getMaxmemberID()throws Exception;
     
 }

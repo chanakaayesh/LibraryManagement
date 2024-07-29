@@ -5,6 +5,7 @@
 package librarymanagement.dao;
 
 import librarymanagement.dao.custome.impl.MemberDaoImpl;
+import librarymanagement.dao.custome.impl.UserDaoImpl;
 import librarymanagement.enumContainer.EnumContainer;
 
 /**
@@ -32,7 +33,7 @@ public class DaoFactory {
                
              case USER:
                 
-               return null;
+               return new UserDaoImpl();
                
                case BOOK:
                 

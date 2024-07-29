@@ -8,6 +8,7 @@ import librarymanagement.enumContainer.EnumContainer.ServiceType;
 import static librarymanagement.enumContainer.EnumContainer.ServiceType.BOOK;
 import static librarymanagement.enumContainer.EnumContainer.ServiceType.USER;
 import librarymanagement.services.custom.impl.MemberServiceImpl;
+import librarymanagement.services.custom.impl.UserServiceImpl;
 
 /**
  *
@@ -32,7 +33,7 @@ import librarymanagement.services.custom.impl.MemberServiceImpl;
                 return new MemberServiceImpl();
             
             case USER:
-                    return null;
+                    return new UserServiceImpl();
             case BOOK:
                     return null;
                     

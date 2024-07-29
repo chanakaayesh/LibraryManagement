@@ -19,9 +19,8 @@ public class MemberDto {
    private int age;
    private String address ;
 
-   private UserDto user;
 
-    public MemberDto(int serialNumber, String memberId, String lastName, String firstName, int age, String address, UserDto user) {
+    public MemberDto(int serialNumber, String memberId, String lastName, String firstName, int age, String address) {
         this.serialNumber = serialNumber;
         this.memberId = memberId;
         this.lastName = lastName;
@@ -29,7 +28,7 @@ public class MemberDto {
         this.age = age;
         this.address = address;
        
-        this.user = user;
+       
     }
 
     public int getSerialNumber() {
@@ -82,17 +81,10 @@ public class MemberDto {
 
   
 
-    public UserDto getUser() {
-        return user;
-    }
-
-    public void setUser(UserDto user) {
-        this.user = user;
-    }
-
+ 
     @Override
     public String toString() {
-        return "MemberDto{" + "serialNumber=" + serialNumber + ", memberId=" + memberId + ", lastName=" + lastName + ", firstName=" + firstName + ", age=" + age + ", address=" + address + ", user=" + user + '}';
+        return "MemberDto{" + "serialNumber=" + serialNumber + ", memberId=" + memberId + ", lastName=" + lastName + ", firstName=" + firstName + ", age=" + age + ", address=" + address + '}';
     }
 
    
