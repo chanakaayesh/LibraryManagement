@@ -11,6 +11,6 @@ import librarymanagement.entity.BorrowingBookEntity;
  *
  * @author ayesh
  */
-public interface BorrowingBookDao extends CrudDao<BorrowingBookEntity, Integer>{
-    
+public interface BorrowingBookDao extends CrudDao<BorrowingBookEntity, String>{
+    public String getMaxmemberID()throws Exception;
 }

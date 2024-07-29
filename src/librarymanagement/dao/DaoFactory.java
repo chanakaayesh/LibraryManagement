@@ -4,6 +4,10 @@
  */
 package librarymanagement.dao;
 
+import librarymanagement.dao.custome.impl.BookCategoryDaoImpl;
+import librarymanagement.dao.custome.impl.BookDaoImpl;
+import librarymanagement.dao.custome.impl.BorrowingBookDaoImpl;
+import librarymanagement.dao.custome.impl.BorrwoingBookDetailDaoImpl;
 import librarymanagement.dao.custome.impl.MemberDaoImpl;
 import librarymanagement.dao.custome.impl.UserDaoImpl;
 import librarymanagement.enumContainer.EnumContainer;
@@ -29,24 +33,28 @@ public class DaoFactory {
         switch (type) {
             case MEMBER:
                 
-               return new MemberDaoImpl();
+                    return new MemberDaoImpl();
                
              case USER:
                 
-               return new UserDaoImpl();
+                    return new UserDaoImpl();
                
                case BOOK:
                 
-               return null;
+                    return new BookDaoImpl();
                
                case  BOOKCATEGORY:
                 
-               return null;
+                    return new BookCategoryDaoImpl();
                
                
                case  BORROWINGBOOK:
                
-               return null;
+                    return new BorrowingBookDaoImpl();
+               
+               case BORROWINGDETAIL:
+                   
+                    return new BorrwoingBookDetailDaoImpl();
       
             default:
                 return null;

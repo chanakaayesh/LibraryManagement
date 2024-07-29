@@ -19,7 +19,7 @@ public class BookDto {
   private String  author ;
   private String  bookTitle ;
   private Date  publishDate ;
-  private int itemQuantity;
+  private int bookQuantity;
 
     public BookDto(int serialNumber, String bookId, String categoryId, String author, String bookTitle, Date publishDate, int itemQuantity) {
         this.serialNumber = serialNumber;
@@ -28,7 +28,7 @@ public class BookDto {
         this.author = author;
         this.bookTitle = bookTitle;
         this.publishDate = publishDate;
-        this.itemQuantity = itemQuantity;
+        this.bookQuantity = itemQuantity;
     }
 
     public int getSerialNumber() {
@@ -80,16 +80,16 @@ public class BookDto {
     }
 
     public int getItemQuantity() {
-        return itemQuantity;
+        return bookQuantity;
     }
 
     public void setItemQuantity(int itemQuantity) {
-        this.itemQuantity = itemQuantity;
+        this.bookQuantity = itemQuantity;
     }
 
     @Override
     public String toString() {
-        return "BookEntity{" + "serialNumber=" + serialNumber + ", bookId=" + bookId + ", categoryId=" + categoryId + ", author=" + author + ", bookTitle=" + bookTitle + ", publishDate=" + publishDate + ", itemQuantity=" + itemQuantity + '}';
+        return "BookEntity{" + "serialNumber=" + serialNumber + ", bookId=" + bookId + ", categoryId=" + categoryId + ", author=" + author + ", bookTitle=" + bookTitle + ", publishDate=" + publishDate + ", itemQuantity=" + bookQuantity + '}';
     }
 
 

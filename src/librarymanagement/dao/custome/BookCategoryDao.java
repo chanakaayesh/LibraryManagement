@@ -11,6 +11,6 @@ import librarymanagement.entity.BookCategoryEntity;
  *
  * @author ayesh
  */
-public interface BookCategoryDao extends CrudDao<BookCategoryEntity, Integer>{
+public interface BookCategoryDao extends CrudDao<BookCategoryEntity, String>{
     
 }

@@ -22,7 +22,7 @@ public class EnumContainer {
     
     public enum DaoType{
         
-        MEMBER,USER,BOOKCATEGORY,BOOK,BORROWINGBOOK;
+        MEMBER,USER,BOOKCATEGORY,BOOK,BORROWINGBOOK,BORROWINGDETAIL;
     }
     
     public enum ServiceType{
