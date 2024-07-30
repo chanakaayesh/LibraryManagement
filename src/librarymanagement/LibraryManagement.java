@@ -12,6 +12,7 @@ import librarymanagement.contoller.UserController;
 import librarymanagement.dto.MemberDto;
 import librarymanagement.dto.UserDto;
 import librarymanagement.enumContainer.EnumContainer;
+import librarymanagement.view.LoginView;
 
 
 /**
@@ -29,11 +30,11 @@ public class LibraryManagement {
             // saveMember();
         
             //  updateMemberAndPassword();
-           // deleteMemberAndUser();
-                viewMemerUser();
-                searchByIdmemerAndUser();
+            deleteMemberAndUser();
+               // viewMemerUser();
+              //  searchByIdmemerAndUser();
         
-       
+       new LoginView().setVisible(true);
     }
     
     
@@ -70,8 +71,8 @@ public class LibraryManagement {
                   
                     
                     
-                    if(UserController.getInstance().delateUser("M20").equals(EnumContainer.databaseDateStatus.SUCCESS.getValue())){
-                        MemberController.getInstance().delateMember("M20");
+                    if(UserController.getInstance().delateUser("M29").equals(EnumContainer.databaseDateStatus.SUCCESS.getValue())){
+                        MemberController.getInstance().delateMember("M29");
                     
                     }
                     
@@ -102,20 +103,7 @@ public class LibraryManagement {
     }
     
     private static void saveMember(){
-         try {
-                  UserDto user = new UserDto("M2", "chanaka@gmail.com", "123", "Memebr");
-         System.out.println("user Value is "); 
-        MemberDto dto = new MemberDto(0, "0", "samith", "vije", 15, "colombo");
-           
-            if(MemberController.getInstance().save(dto).equals(EnumContainer.databaseDateStatus.SUCCESS.getValue())){
-               
-                UserController.getInstance().SaveUser(user);
-            }
-         
-        } catch (Exception e) {
-              System.out.println("Value is a erro : "+e.getMessage());   
-            
-        }
+  
     }
     
 }

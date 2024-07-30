@@ -4,6 +4,7 @@
  */
 package librarymanagement.contoller;
 
+import java.util.Map;
 import librarymanagement.dto.UserDto;
 import librarymanagement.enumContainer.EnumContainer;
 import librarymanagement.services.Servicefactor;
@@ -41,5 +42,11 @@ public class UserController {
     public UserDto getUser(String memId)throws Exception{
     
         return servie.getUserById(memId);
+    }
+    
+    public Map<String,Object> userlogin(String email, String password)throws Exception{
+    
+        Map<String,Object> result =servie.userlogin(email, password);
+           return result;
     }
 }

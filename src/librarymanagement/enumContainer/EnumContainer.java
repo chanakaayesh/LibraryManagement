@@ -44,4 +44,37 @@ public class EnumContainer {
         }
         
     }
+    
+    public enum LoginStatus{
+        LOGINSTATUS("LOGINSTATUS"),
+        LOGINUSER("USER");
+        
+        private String value;
+        
+        private LoginStatus (String value){
+            this.value =value;
+        }
+        
+        public String getValue(){
+            return value;
+        }
+    
+    }
+    
+    public enum UserType{
+        
+        MEMEBER("MEMBER"),
+        STUFF("STUFF");
+        
+        private String value;
+
+        private UserType(String value) {
+            this.value = value;
+        }
+        
+        
+        public String getValue(){
+            return value;
+        }
+    }
 }

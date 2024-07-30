@@ -4,6 +4,7 @@
  */
 package librarymanagement.services.custom;
 
+import java.util.Map;
 import librarymanagement.dto.UserDto;
 import librarymanagement.services.SuperService;
 
@@ -17,5 +18,6 @@ public interface UserService extends SuperService{
     String updateUser(UserDto dto)throws Exception;
     String deleteUser(String Id)throws Exception;
     UserDto getUserById(String Id)throws Exception;
+    Map<String,Object> userlogin(String email,String password) throws Exception;
     
 }

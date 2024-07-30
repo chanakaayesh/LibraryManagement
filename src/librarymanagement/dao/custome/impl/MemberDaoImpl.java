@@ -86,15 +86,26 @@ public class MemberDaoImpl implements MemberDao{
     @Override
     public String getMaxmemberID()throws Exception{
     
-        int maxId=0;
-        ResultSet result =CrudUtil.excuteQuery("SELECT MAX(serialNumber) AS lastSerialNumber FROM member;" );
+            int maxId = 0;
+    ResultSet result = CrudUtil.excuteQuery("SELECT MAX(serialNumber) AS lastSerialNumber FROM member;");
+    
+    if (result.next()) {
+        maxId = result.getInt("lastSerialNumber");
+    }
+    
+    String maxMId = "";
+    if (maxId != 0) {
+        ResultSet result1 = CrudUtil.excuteQuery("SELECT memberId FROM member WHERE serialNumber = ?", maxId);
         
-        if(result.next()){
-            maxId   =result.getInt("lastSerialNumber");
+        if (result1.next()) {
+            maxMId = result1.getString("memberId");
         }
-       
-         AlertMessage.getInstance().printMessage("User geting mx id"+(maxId ==0? "M"+1:"M"+(maxId)));
-        return  maxId ==0? "M"+1:"M"+(maxId);
+    }
+    
+    AlertMessage.getInstance().printMessage("Member getting value id: " + maxMId);
+    AlertMessage.getInstance().printMessage("Member getting max id: " + (maxMId.equals("") ? "M1" : maxMId));
+    
+    return maxMId.equals("") ? "M1" : maxMId;
     }
     
     

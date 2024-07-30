@@ -4,12 +4,16 @@
  */
 package librarymanagement.dao.custome.impl;
 
+import com.mysql.cj.conf.ConnectionUrlParser;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import librarymanagement.dao.CrudUtil;
 import librarymanagement.dao.custome.UserDao;
 import librarymanagement.entity.UserEntity;
+import librarymanagement.enumContainer.EnumContainer;
 
 /**
  *
@@ -41,14 +45,9 @@ public class UserDaoImpl implements UserDao{
         
         ResultSet rsl =CrudUtil.excuteQuery("SELECT memberId,email,userType FROM user WHERE memberId= ? ", id);
     
-        if(rsl.next()){
-            UserEntity entity = new UserEntity(rsl.getString("memberId"),
-                    rsl.getString("email"), "*******", rsl.getString("userType"));
-            
-            return entity;
-        }
+     
         
-        return null;
+        return getUserEntity(rsl);
     }
 
     @Override
@@ -56,5 +55,35 @@ public class UserDaoImpl implements UserDao{
         //this method can't call, because one member can has one logine/user, not a list of user
     return null;
     }
+
+    @Override
+    public Map<String,Object>  userlogin(String email, String password) throws Exception {
+        
+        ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM user WHERE email = ? AND userPassword =? ", email, password);
+        UserEntity entity =getUserEntity(rsl);
+        boolean isLoginSuccess = false;
+        if(email.equals(entity.getEmail())){
+            isLoginSuccess = true;
+        }
+        
+        Map<String, Object> result = new HashMap<>();
+        result.put(EnumContainer.LoginStatus.LOGINSTATUS.getValue(), isLoginSuccess);
+        result.put(EnumContainer.LoginStatus.LOGINUSER.getValue(), entity);
+        
+        return result;
+    
+    }
+
+    private UserEntity getUserEntity(ResultSet rsl) throws Exception{
+       if(rsl.next()){
+            UserEntity entity = new UserEntity(rsl.getString("memberId"),
+                    rsl.getString("email"), "*******", rsl.getString("userType"));
+            
+            return entity;
+        }
+    
+       return null;
+    }
+    
     
 }

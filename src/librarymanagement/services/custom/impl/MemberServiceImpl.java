@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
         
         boolean isMemberCreated =   memberDao.create(membeDtoToEntity(dto));
         
-          Connection connection = DBConnection.getInstance().getConnection();
+    
 //        
 //          try {
 //              

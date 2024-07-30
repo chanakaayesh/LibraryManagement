@@ -4,6 +4,7 @@
  */
 package librarymanagement.services.custom.impl;
 
+import java.util.Map;
 import librarymanagement.alert.AlertMessage;
 import librarymanagement.dao.DaoFactory;
 import librarymanagement.dao.custome.MemberDao;
@@ -54,6 +55,16 @@ public class UserServiceImpl implements UserService{
         return userEntityToDto(userDao.get(Id));
     }
     
+   @Override
+    public Map<String, Object> userlogin(String email, String password) throws Exception {
+    
+         Map<String, Object> result = userDao.userlogin(email, password);
+         UserDto user =userEntityToDto((UserEntity)result.get(EnumContainer.LoginStatus.LOGINUSER.getValue()));
+      
+         result.put(EnumContainer.LoginStatus.LOGINUSER.getValue(), user);
+         
+         return result;
+    }
     
      private UserEntity userEntity(UserDto dto){
         
@@ -64,4 +75,6 @@ public class UserServiceImpl implements UserService{
         
         return new UserDto(entity.getMemberId(), entity.getEmail(), entity.getUserPassword(), entity.getUserType());
     }
+
+  
 }
