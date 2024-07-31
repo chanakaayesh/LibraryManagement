@@ -26,15 +26,13 @@ public class HomePage extends javax.swing.JFrame {
         initComponents();
         this.userDto = userDto;
          AlertMessage.getInstance().printMessage("HomePage:constructor  success: user "+userDto);
-         
+       
+        jp_mainpanel.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
          loadMembser();
          
-          jp_mainpanel.setLayout(new BorderLayout());
-
-        // Add button panel and main panel to the frame
-        setLayout(new BorderLayout());
-       // add(pj_button, BorderLayout.NORTH);
-        showView(new MemberView(EnumContainer.RegistrationPanel.SHOW));
+         
+      //  showView(new MemberView(EnumContainer.RegistrationPanel.SHOW));
       
     }
 

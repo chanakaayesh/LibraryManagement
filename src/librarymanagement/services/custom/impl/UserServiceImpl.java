@@ -73,9 +73,11 @@ public class UserServiceImpl implements UserService{
     public Map<String, Object> userlogin(String email, String password) throws Exception {
     
          Map<String, Object> result = userDao.userlogin(email, password);
-         UserDto user =userEntityToDto((UserEntity)result.get(EnumContainer.LoginStatus.LOGINUSER.getValue()));
+         UserEntity entity =(UserEntity)result.get(EnumContainer.LoginStatus.LOGINUSER.getValue());
+        
+         
       
-         result.put(EnumContainer.LoginStatus.LOGINUSER.getValue(), user);
+         result.put(EnumContainer.LoginStatus.LOGINUSER.getValue(), entity !=null?userEntityToDto(entity):null);
          
          return result;
     }

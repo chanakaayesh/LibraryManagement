@@ -4,6 +4,7 @@
  */
 package librarymanagement.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Label;
 import java.awt.TextField;
@@ -31,8 +32,9 @@ public class MemberRegistration extends javax.swing.JFrame {
     public MemberRegistration() {
         initComponents();
   
-      
-       CommandUIMethods.getInstance().showView(jp_mainPanel, new MemberView(EnumContainer.RegistrationPanel.HIDE));
+       jp_mainPanel.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
+       loadMemberView();
    
     }
 
@@ -134,6 +136,16 @@ public class MemberRegistration extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jp_mainPanel;
     // End of variables declaration//GEN-END:variables
+
+    private void loadMemberView() {
+   // CommandUIMethods.getInstance().showView(jp_mainPanel, new MemberView(EnumContainer.RegistrationPanel.SHOW));
+        try {
+            CommandUIMethods.getInstance().showView(jp_mainPanel, new MemberView(EnumContainer.RegistrationPanel.SHOW));
+        } catch (Exception e) {
+            
+            AlertMessage.getInstance().showDialog(this, "loading err"+e.getMessage());
+        }
+    }
 
     
    
