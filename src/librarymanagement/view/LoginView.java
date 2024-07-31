@@ -209,6 +209,6 @@ public class LoginView extends javax.swing.JFrame {
     private void openRegistrationView() {
     
             this.dispose();
-            new MemberRegistration().setVisible(true);
+            new MemberRegistration(EnumContainer.RegistrationPanel.HIDE).setVisible(true);
     }
 }

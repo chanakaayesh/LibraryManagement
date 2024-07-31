@@ -101,6 +101,7 @@ public class MemberServiceImpl implements MemberService{
                for(MemberEntity entity : memberDao.getAll()){
                    
                    memberLis.add(membeEntityToDto(entity));
+                  // AlertMessage.getInstance().printMessage("MemberDaoImpl:getMemberList member" + entity);
                }
                
               return memberLis;
@@ -116,7 +117,7 @@ public class MemberServiceImpl implements MemberService{
     
     private MemberDto membeEntityToDto(MemberEntity entity){
     
-      return new MemberDto(0, entity.getMemberId(), entity.getLastName(), entity.getFirstName(), entity.getAge(),
+      return new MemberDto(entity.getSerialNumber(), entity.getMemberId(), entity.getLastName(), entity.getFirstName(), entity.getAge(),
               entity.getAddress());
     }
     private UserEntity userEntity(UserDto dto){

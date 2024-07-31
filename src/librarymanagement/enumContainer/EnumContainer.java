@@ -77,4 +77,23 @@ public class EnumContainer {
             return value;
         }
     }
+    
+    public enum RegistrationPanel{
+        SHOW("SHOW"),
+        HIDE("HIDE");
+        
+        private String value;
+
+        private RegistrationPanel(String value) {
+            this.value = value;
+        }
+        
+        public String getValue(){
+            return value;
+        }
+    }
+    
+    public enum CrudOperationType{
+        SAVE,UPDATE,DELETE;
+    }
 }

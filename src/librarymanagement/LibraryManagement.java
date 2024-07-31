@@ -12,6 +12,7 @@ import librarymanagement.contoller.UserController;
 import librarymanagement.dto.MemberDto;
 import librarymanagement.dto.UserDto;
 import librarymanagement.enumContainer.EnumContainer;
+import librarymanagement.view.HomePage;
 import librarymanagement.view.LoginView;
 
 
@@ -34,7 +35,16 @@ public class LibraryManagement {
                // viewMemerUser();
               //  searchByIdmemerAndUser();
         
-       new LoginView().setVisible(true);
+     //  new LoginView().setVisible(true);
+    UserDto user = new UserDto("M20", "", "89755", "");
+         
+    new HomePage(user).setVisible(true);
+   /*     try {
+            AlertMessage.getInstance().printMessage("getUserBy id "+UserController.getInstance().getUser("M16")); 
+        } catch (Exception e) {
+             AlertMessage.getInstance().printMessage("error at main "+e.getMessage());
+        }*/
+     
     }
     
     

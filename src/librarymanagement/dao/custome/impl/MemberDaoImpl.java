@@ -45,24 +45,32 @@ public class MemberDaoImpl implements MemberDao{
     public MemberEntity get(String id) throws Exception {
         
         ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM member WHERE  memberId = ? ", id);
-        
+        if(rsl !=null&& rsl.next()){
+            return getEntity(rsl);
+        }else{
+        return null;
+        }
       
         
-        return getEntity(rsl);
+        
     }
 
     @Override
     public ArrayList<MemberEntity> getAll() throws Exception {
         
         ArrayList<MemberEntity> entityList = new ArrayList<>();
-        ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM member");
+        ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM member ORDER BY serialNumber");
         
-        while(rsl.next()){
-        
-           entityList.add(getEntity(rsl));
-        }
-        
-        return entityList;
+        if (rsl != null) {
+             while (rsl.next()) {
+            MemberEntity entity = getEntity(rsl); // Call getEntity once per row
+            AlertMessage.getInstance().printMessage("MemberDaoImpl:getMemberList member " + entity);
+            if (entity != null) {
+                entityList.add(entity); // Add the entity to the list if it's not null
+                }
+            }
+         }
+    return entityList;
     }
     
     /**
@@ -75,13 +83,13 @@ public class MemberDaoImpl implements MemberDao{
      int maxId=0;
         ResultSet result =CrudUtil.excuteQuery("SELECT MAX(serialNumber) AS lastSerialNumber FROM member;" );
         
-        if(result.next()){
+        if(result !=null && result.next()){
             maxId   =result.getInt("lastSerialNumber");
         }
         
-         AlertMessage.getInstance().printMessage("User geting mx id"+(maxId ==0? "M"+1:"M"+(maxId)));
+         AlertMessage.getInstance().printMessage("Mem geting mx id : "+(maxId ==0? "M"+1:"M"+(maxId)));
  
-        return  maxId ==0? "M"+1:"M"+(maxId+1);
+        return  maxId ==0? "M1":"M"+(maxId+1);
     }
     @Override
     public String getMaxmemberID()throws Exception{
@@ -109,17 +117,18 @@ public class MemberDaoImpl implements MemberDao{
     }
     
     
+    
     private MemberEntity getEntity(ResultSet rsl)throws Exception{
     
-              if(rsl.next()){
-            MemberEntity entity = new MemberEntity(rsl.getInt("serialNumber"), rsl.getString("memberId"), 
+                
+             
+                    MemberEntity entity = new MemberEntity(rsl.getInt("serialNumber"), rsl.getString("memberId"), 
                     rsl.getString("lastName"), rsl.getString("firstName"), rsl.getInt("age"),
                     rsl.getString("address"));
             
-            return entity;
-        }
-              
-       return null;
+                     return entity;
+           
+           
     }
     
 }

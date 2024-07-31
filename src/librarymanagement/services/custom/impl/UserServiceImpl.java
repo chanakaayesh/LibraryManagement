@@ -51,8 +51,22 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDto getUserById(String Id) throws Exception {
+        AlertMessage.getInstance().printMessage("UserServiceImpl:getUserById getting Mid " + Id);
+        UserEntity userEntity =userDao.get(Id);
+        if(userEntity !=null){
+            
+             AlertMessage.getInstance().printMessage("UserServiceImpl:getUserById geting userDao 2 : "+userEntity);
+                 return userEntityToDto(userEntity);
         
-        return userEntityToDto(userDao.get(Id));
+        }else{
+            AlertMessage.getInstance().printMessage("UserServiceImpl:getUserById user null for mid "+Id);
+            return null;
+        }
+        
+       
+       
+        
+        
     }
     
    @Override
@@ -72,7 +86,7 @@ public class UserServiceImpl implements UserService{
     }
      
     private UserDto userEntityToDto(UserEntity entity){
-        
+        AlertMessage.getInstance().printMessage("UserServiceImpl:UserDto userEntity 4 :"+entity);
         return new UserDto(entity.getMemberId(), entity.getEmail(), entity.getUserPassword(), entity.getUserType());
     }
 

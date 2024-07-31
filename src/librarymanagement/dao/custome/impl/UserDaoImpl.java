@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import librarymanagement.alert.AlertMessage;
 
 import librarymanagement.dao.CrudUtil;
 import librarymanagement.dao.custome.UserDao;
@@ -46,8 +47,15 @@ public class UserDaoImpl implements UserDao{
         ResultSet rsl =CrudUtil.excuteQuery("SELECT memberId,email,userType FROM user WHERE memberId= ? ", id);
     
      
+        if (rsl != null && rsl.next()) {
         
-        return getUserEntity(rsl);
+        UserEntity userEntity = getUserEntity(rsl);
+        AlertMessage.getInstance().printMessage("UserDaoImpl:UserEntity getting User1: " + userEntity);
+        return userEntity;
+    } else {
+        AlertMessage.getInstance().printMessage("UserDaoImpl: No user found for id: " + id);
+        return null; // No user found
+    }
     }
 
     @Override
@@ -60,6 +68,8 @@ public class UserDaoImpl implements UserDao{
     public Map<String,Object>  userlogin(String email, String password) throws Exception {
         
         ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM user WHERE email = ? AND userPassword =? ", email, password);
+       
+        if(rsl !=null &&rsl.next()){
         UserEntity entity =getUserEntity(rsl);
         boolean isLoginSuccess = false;
         if(email.equals(entity.getEmail())){
@@ -69,20 +79,23 @@ public class UserDaoImpl implements UserDao{
         Map<String, Object> result = new HashMap<>();
         result.put(EnumContainer.LoginStatus.LOGINSTATUS.getValue(), isLoginSuccess);
         result.put(EnumContainer.LoginStatus.LOGINUSER.getValue(), entity);
+         return result;
+        }
         
-        return result;
+        return null;
+       
     
     }
 
     private UserEntity getUserEntity(ResultSet rsl) throws Exception{
-       if(rsl.next()){
+   
             UserEntity entity = new UserEntity(rsl.getString("memberId"),
                     rsl.getString("email"), "*******", rsl.getString("userType"));
             
             return entity;
-        }
+       
     
-       return null;
+      
     }
     
     
