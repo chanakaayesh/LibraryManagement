@@ -139,7 +139,7 @@ public class HomePage extends javax.swing.JFrame {
 
         lbl_title.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_title.setText("Members");
+        lbl_title.setText("Welcome");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,6 +190,7 @@ public class HomePage extends javax.swing.JFrame {
 
     private void btn_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookActionPerformed
         // TODO add your handling code here:
+         CommandUIMethods.getInstance().showView(jp_mainpanel, new BookView());
     }//GEN-LAST:event_btn_bookActionPerformed
 
     private void btn_borrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrowActionPerformed
@@ -198,6 +199,7 @@ public class HomePage extends javax.swing.JFrame {
 
     private void btn_categoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_categoryActionPerformed
         // TODO add your handling code here:
+          CommandUIMethods.getInstance().showView(jp_mainpanel, new CategoryView());
     }//GEN-LAST:event_btn_categoryActionPerformed
 
     private void btn_memberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_memberActionPerformed

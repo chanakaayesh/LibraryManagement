@@ -13,10 +13,10 @@ import librarymanagement.services.SuperService;
  * @author ayesh
  */
 public interface MemberService extends SuperService{
-    String saveMember(MemberDto dto)throws Exception;
-    String updateMember(MemberDto dto)throws Exception;
-    String deleteMember(String Id)throws Exception;
-    MemberDto getMemberById(String Id)throws Exception;
-    List<MemberDto> getMemberList()throws Exception;
+  public  String saveMember(MemberDto dto)throws Exception;
+  public  String updateMember(MemberDto dto)throws Exception;
+  public  String deleteMember(String Id)throws Exception;
+  public  MemberDto getMemberById(String Id)throws Exception;
+  public  List<MemberDto> getMemberList()throws Exception;
     
 }

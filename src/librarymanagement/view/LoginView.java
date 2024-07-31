@@ -97,7 +97,7 @@ public class LoginView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addComponent(jLabel4)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +115,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -190,15 +190,25 @@ public class LoginView extends javax.swing.JFrame {
         try {
          Map<String,Object>  result  = UserController.getInstance().userlogin(txtf_userName.getText(), txtf_password.getText());
          
-         boolean isLoginSucces =(boolean)result.get(EnumContainer.LoginStatus.LOGINSTATUS.getValue());
+         
+         if(result !=null || !result.isEmpty()){
+              boolean isLoginSucces =(boolean)result.get(EnumContainer.LoginStatus.LOGINSTATUS.getValue());
          if(isLoginSucces){
              
+             AlertMessage.getInstance().showDialog(this, "Login Succes");
                 UserDto user=(UserDto)result.get(EnumContainer.LoginStatus.LOGINUSER.getValue());
                
                  new HomePage(user).setVisible(true);
                   this.dispose();
                AlertMessage.getInstance().printMessage("LoginView:userLogin success: ");
+         }else{
+                AlertMessage.getInstance().showDialog(this, "Login Fail");
          }
+         }else{
+             AlertMessage.getInstance().showDialog(this, "Login Fail error");
+             return;
+         }
+        
          
         } catch (Exception e) {
             AlertMessage.getInstance().printMessage("LoginView:userLogin error is : "+e.getMessage());
@@ -209,6 +219,7 @@ public class LoginView extends javax.swing.JFrame {
     private void openRegistrationView() {
     
             this.dispose();
-            new MemberRegistration(EnumContainer.RegistrationPanel.HIDE).setVisible(true);
+           
+            new MemberRegistration().setVisible(true);
     }
 }

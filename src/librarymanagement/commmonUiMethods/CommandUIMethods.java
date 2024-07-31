@@ -6,6 +6,9 @@ package librarymanagement.commmonUiMethods;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -62,5 +65,24 @@ public class CommandUIMethods {
         if(!Character.isDigit(c)){
                 evt.consume();
         }
+    }
+    
+    public Date getStringToDate(String dateString){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+         Date date = null; // Declare the date variable here
+
+        try {
+            date = sdf.parse(dateString); // Assign the parsed date to the variable
+        } catch (ParseException e) {
+            e.printStackTrace(); // Handle the exception
+        }
+
+        return date; // Return the dat
+    }
+     public String getToDateString(Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       
+
+        return sdf.format(date); // Return the dat
     }
 }

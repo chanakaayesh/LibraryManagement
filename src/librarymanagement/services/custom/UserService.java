@@ -14,10 +14,10 @@ import librarymanagement.services.SuperService;
  */
 public interface UserService extends SuperService{
     
-    String saveUser(UserDto dto)throws Exception;
-    String updateUser(UserDto dto)throws Exception;
-    String deleteUser(String Id)throws Exception;
-    UserDto getUserById(String Id)throws Exception;
-    Map<String,Object> userlogin(String email,String password) throws Exception;
+ public   String saveUser(UserDto dto)throws Exception;
+ public   String updateUser(UserDto dto)throws Exception;
+ public   String deleteUser(String Id)throws Exception;
+ public  UserDto getUserById(String Id)throws Exception;
+ public  Map<String,Object> userlogin(String email,String password) throws Exception;
     
 }

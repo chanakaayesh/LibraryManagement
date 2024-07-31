@@ -14,7 +14,7 @@ public class BookEntity {
     
   private int  serialNumber ;
   private String  bookId ;
-  private String  categoryId ;
+  private String  categoryName ;
   private String  author ;
   private String  bookTitle ;
   private Date  publishDate ;
@@ -23,7 +23,7 @@ public class BookEntity {
     public BookEntity(int serialNumber, String bookId, String categoryId, String author, String bookTitle, Date publishDate, int itemQuantity) {
         this.serialNumber = serialNumber;
         this.bookId = bookId;
-        this.categoryId = categoryId;
+        this.categoryName = categoryId;
         this.author = author;
         this.bookTitle = bookTitle;
         this.publishDate = publishDate;
@@ -47,11 +47,11 @@ public class BookEntity {
     }
 
     public String getCategoryId() {
-        return categoryId;
+        return categoryName;
     }
 
     public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+        this.categoryName = categoryId;
     }
 
     public String getAuthor() {
@@ -88,7 +88,7 @@ public class BookEntity {
 
     @Override
     public String toString() {
-        return "BookEntity{" + "serialNumber=" + serialNumber + ", bookId=" + bookId + ", categoryId=" + categoryId + ", author=" + author + ", bookTitle=" + bookTitle + ", publishDate=" + publishDate + ", itemQuantity=" + itemQuantity + '}';
+        return "BookEntity{" + "serialNumber=" + serialNumber + ", bookId=" + bookId + ", categoryId=" + categoryName + ", author=" + author + ", bookTitle=" + bookTitle + ", publishDate=" + publishDate + ", itemQuantity=" + itemQuantity + '}';
     }
 
 

@@ -4,9 +4,14 @@
  */
 package librarymanagement.services;
 
+import librarymanagement.dao.custome.impl.BorrowingBookDaoImpl;
 import librarymanagement.enumContainer.EnumContainer.ServiceType;
 import static librarymanagement.enumContainer.EnumContainer.ServiceType.BOOK;
 import static librarymanagement.enumContainer.EnumContainer.ServiceType.USER;
+import librarymanagement.services.custom.BookCategoryService;
+import librarymanagement.services.custom.impl.BookBorrowingServiceImpl;
+import librarymanagement.services.custom.impl.BookCategoryServiceImpl;
+import librarymanagement.services.custom.impl.BookServiceImpl;
 import librarymanagement.services.custom.impl.MemberServiceImpl;
 import librarymanagement.services.custom.impl.UserServiceImpl;
 
@@ -35,12 +40,12 @@ import librarymanagement.services.custom.impl.UserServiceImpl;
             case USER:
                     return new UserServiceImpl();
             case BOOK:
-                    return null;
+                    return new BookServiceImpl();
                     
             case BOOKCATEGORY:
-                    return null;
+                    return new BookCategoryServiceImpl();
             case BORROWINGBOOK:
-                    return null;
+                    return new BookBorrowingServiceImpl();
                
             default:
                 return null;

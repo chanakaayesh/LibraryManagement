@@ -14,10 +14,10 @@ import librarymanagement.services.SuperService;
  */
 public interface BookService extends SuperService {
     
-    String saveBook(BookDto dto)throws Exception;
-    String updateBook(BookDto dto)throws Exception;
-    String deleteBook(String Id)throws Exception;
-    BookDto getBookById(String Id)throws Exception;
-    List<BookDto> getBookList()throws Exception;
+ public   String saveBook(BookDto dto)throws Exception;
+ public   String updateBook(BookDto dto)throws Exception;
+ public    String deleteBook(String Id)throws Exception;
+ public   BookDto getBookById(String Id)throws Exception;
+ public   List<BookDto> getBookList()throws Exception;
     
 }

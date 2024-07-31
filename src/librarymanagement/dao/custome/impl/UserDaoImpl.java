@@ -44,18 +44,18 @@ public class UserDaoImpl implements UserDao{
     @Override
     public UserEntity get(Object id) throws Exception {
         
-        ResultSet rsl =CrudUtil.excuteQuery("SELECT memberId,email,userType FROM user WHERE memberId= ? ", id);
+        ResultSet rsl =CrudUtil.excuteQuery("SELECT* FROM user WHERE memberId= ? ", id);
     
      
         if (rsl != null && rsl.next()) {
         
-        UserEntity userEntity = getUserEntity(rsl);
+            UserEntity userEntity = getUserEntity(rsl);
         AlertMessage.getInstance().printMessage("UserDaoImpl:UserEntity getting User1: " + userEntity);
-        return userEntity;
-    } else {
-        AlertMessage.getInstance().printMessage("UserDaoImpl: No user found for id: " + id);
+             return userEntity;
+            } else {
+       AlertMessage.getInstance().printMessage("UserDaoImpl: No user found for id:1 " + id);
         return null; // No user found
-    }
+        }
     }
 
     @Override
@@ -66,23 +66,33 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public Map<String,Object>  userlogin(String email, String password) throws Exception {
-        
-        ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM user WHERE email = ? AND userPassword =? ", email, password);
-       
-        if(rsl !=null &&rsl.next()){
-        UserEntity entity =getUserEntity(rsl);
+                 Map<String, Object> result = new HashMap<>();
+    ResultSet rsl = CrudUtil.excuteQuery("SELECT * FROM user WHERE email = ? AND userPassword = ?", email, password);
+
+    if (rsl != null && rsl.next()) {
+        UserEntity entity = getUserEntity(rsl);
         boolean isLoginSuccess = false;
-        if(email.equals(entity.getEmail())){
+
+        // Log retrieved entity details
+        AlertMessage.getInstance().printMessage("UserDaoImpl:userlogin: Retrieved entity: " + entity);
+
+        if (email.equals(entity.getEmail()) && password.equals(entity.getUserPassword())) {
             isLoginSuccess = true;
+            AlertMessage.getInstance().printMessage("UserDaoImpl:userlogin : Login success for email: " + email);
+        } else {
+            AlertMessage.getInstance().printMessage("UserDaoImpl:userlogin : Incorrect credentials for email: " + email);
         }
-        
-        Map<String, Object> result = new HashMap<>();
+
+        entity.setUserPassword("******");
         result.put(EnumContainer.LoginStatus.LOGINSTATUS.getValue(), isLoginSuccess);
         result.put(EnumContainer.LoginStatus.LOGINUSER.getValue(), entity);
-         return result;
-        }
-        
-        return null;
+    } else {
+        result.put(EnumContainer.LoginStatus.LOGINSTATUS.getValue(), false);
+        result.put(EnumContainer.LoginStatus.LOGINUSER.getValue(), null);
+        AlertMessage.getInstance().printMessage("UserDaoImpl:userlogin : No user found for email: " + email);
+    }
+
+    return result;
        
     
     }
@@ -90,7 +100,7 @@ public class UserDaoImpl implements UserDao{
     private UserEntity getUserEntity(ResultSet rsl) throws Exception{
    
             UserEntity entity = new UserEntity(rsl.getString("memberId"),
-                    rsl.getString("email"), "*******", rsl.getString("userType"));
+                    rsl.getString("email"), rsl.getString("userPassword"), rsl.getString("userType"));
             
             return entity;
        

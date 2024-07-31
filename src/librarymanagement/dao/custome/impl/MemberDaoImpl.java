@@ -64,7 +64,7 @@ public class MemberDaoImpl implements MemberDao{
         if (rsl != null) {
              while (rsl.next()) {
             MemberEntity entity = getEntity(rsl); // Call getEntity once per row
-            AlertMessage.getInstance().printMessage("MemberDaoImpl:getMemberList member " + entity);
+         //   AlertMessage.getInstance().printMessage("MemberDaoImpl:getMemberList member " + entity);
             if (entity != null) {
                 entityList.add(entity); // Add the entity to the list if it's not null
                 }
@@ -87,7 +87,7 @@ public class MemberDaoImpl implements MemberDao{
             maxId   =result.getInt("lastSerialNumber");
         }
         
-         AlertMessage.getInstance().printMessage("Mem geting mx id : "+(maxId ==0? "M"+1:"M"+(maxId)));
+       //  AlertMessage.getInstance().printMessage("Mem geting mx id : "+(maxId ==0? "M"+1:"M"+(maxId)));
  
         return  maxId ==0? "M1":"M"+(maxId+1);
     }
@@ -110,8 +110,8 @@ public class MemberDaoImpl implements MemberDao{
         }
     }
     
-    AlertMessage.getInstance().printMessage("Member getting value id: " + maxMId);
-    AlertMessage.getInstance().printMessage("Member getting max id: " + (maxMId.equals("") ? "M1" : maxMId));
+    //AlertMessage.getInstance().printMessage("Member getting value id: " + maxMId);
+   // AlertMessage.getInstance().printMessage("Member getting max id: " + (maxMId.equals("") ? "M1" : maxMId));
     
     return maxMId.equals("") ? "M1" : maxMId;
     }

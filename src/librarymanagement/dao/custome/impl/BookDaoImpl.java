@@ -23,15 +23,16 @@ public class BookDaoImpl implements BookDao{
         t.setBookId(
           CommonDbfunctions.getInstance().generateNewStringID("SELECT MAX(serialNumber) AS lastSerialNumber FROM book;","B"));
         
-   return CrudUtil.executeUpdate("INSERT INTO book VALUE(DEFAULT,?,?,?,?,?)", t.getBookId(),
-                t.getCategoryId(),t.getAuthor(),t.getBookTitle(),t.getPublishDate()
+        AlertMessage.getInstance().printMessage("BookDaoImpl saveBook book is "+t);
+   return CrudUtil.executeUpdate("INSERT INTO book VALUE(DEFAULT,?,?,?,?,?,?)", t.getBookId(),
+                t.getAuthor(),t.getBookTitle(),t.getPublishDate(),t.getItemQuantity(),t.getCategoryId()
                 ); }
 
     @Override
     public boolean update(BookEntity t) throws Exception {
    
-         return CrudUtil.executeUpdate("UPDATE book SET  categoryId = ? , author= ?, bookTitle= ?, publishDate = ?  WHERE bookId = ?", 
-                     t.getCategoryId(),t.getAuthor(),t.getBookId(),t.getPublishDate(),t.getBookId()
+         return CrudUtil.executeUpdate("UPDATE book SET  categoryName = ? , author= ?, bookTitle= ?, publishDate = ?, itemQuantity = ?  WHERE bookId = ?", 
+                     t.getCategoryId(),t.getAuthor(),t.getBookTitle(),t.getPublishDate(),t.getItemQuantity(),t.getBookId()
                      );
     }
 
@@ -44,10 +45,13 @@ public class BookDaoImpl implements BookDao{
     @Override
     public BookEntity get(String id) throws Exception {
    
-    ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM book WHERE  memberId = ? ", id);
+    ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM book WHERE  bookId = ? ", id);
     
-        return bookResultSetToEntity(rsl);
-        
+            if(rsl.next()){
+             return bookResultSetToEntity(rsl);
+            }
+       
+        return null;
     }
     
     
@@ -71,14 +75,14 @@ public class BookDaoImpl implements BookDao{
     
     private BookEntity bookResultSetToEntity(ResultSet rsl) throws Exception{
     
-        if(rsl.next()){
+       
                BookEntity entity = new BookEntity(rsl.getInt("serialNumber"),
-                       rsl.getString("bookId"), rsl.getString("categoryId"), rsl.getString("author"),
+                       rsl.getString("bookId"), rsl.getString("categoryName"), rsl.getString("author"),
                        rsl.getString("bookTitle"), rsl.getDate("publishDate"), rsl.getInt("itemQuantity"));
                
                return entity;
-            }
+            
         
-        return null;
+      
     }
 }

@@ -27,6 +27,7 @@ public class MemberView extends javax.swing.JPanel {
      */
     private Integer slectectMemberserial;
     private String selectedMemberId ="";
+    private boolean isNewResitration =false;
     public MemberView(EnumContainer.RegistrationPanel panelVisibility) {
         initComponents();
         // CommandUIMethods.getInstance().showView(jp_mainView, new MemberRegistration(EnumContainer.RegistrationPanel.SHOW));
@@ -304,11 +305,13 @@ public class MemberView extends javax.swing.JPanel {
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
         // TODO add your handling code here:
          MemberUserSaveUpdateOperation(EnumContainer.CrudOperationType.UPDATE);
-        loadItemTable();
+        
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         // TODO add your handling code here:
+        
+        deleteMember();
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void txtf_emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtf_emailKeyTyped
@@ -374,45 +377,7 @@ public class MemberView extends javax.swing.JPanel {
             
     }*/
 
-    private void registerMember() {
-        
-    
-   boolean b =  CommandUIMethods.getInstance().checkAllTextFieldIsfilled("red",txtf_address,txtf_age,txtf_email,txtf_firstName,txtf_lastName,txtf_password);
-   
-   if(b){
-       AlertMessage.getInstance().showDialog(this, "Fill all details");
-        }else{
-   
-       
-          try {
-                    String memberType =cb_userType.getSelectedIndex()==0?EnumContainer.UserType.MEMEBER.getValue():EnumContainer.UserType.STUFF.getValue();
-                    UserDto user = new UserDto("", txtf_email.getText(), txtf_password.getText(),memberType );
-                    
-                    MemberDto dto = new MemberDto(0, "0", txtf_lastName.getText(), txtf_firstName.getText(), Integer.parseInt(txtf_age.getText()), txtf_address.getText());
-           
-                    if(MemberController.getInstance().save(dto).equals(EnumContainer.databaseDateStatus.SUCCESS.getValue())){
-               
-                         if(UserController.getInstance().SaveUser(user).equals(EnumContainer.databaseDateStatus.SUCCESS.getValue())){
-                              AlertMessage.getInstance().showDialog(this, "Registration Succes");
-                              loadItemTable();
-                              //new HomePage(user).setVisible(true);
-                             CommandUIMethods.getInstance().cleanTextField(txtf_email,txtf_password,txtf_lastName,txtf_firstName,txtf_age,txtf_address);
-                             CommandUIMethods.getInstance().checkAllTextFieldIsfilled("gray",txtf_address,txtf_age,txtf_email,txtf_firstName,txtf_lastName,txtf_password); 
-                         }else{
-                          AlertMessage.getInstance().showDialog(this, "Unable to Register");
-                         }
-                     }else{
-                      AlertMessage.getInstance().showDialog(this, "Unable to Register");
-                    }
-         
-        } catch (Exception e) {
-              System.out.println("Value is a erro : "+e.getMessage());
-               AlertMessage.getInstance().showDialog(this, "Unable to Register");
-            
-        }
-   
-        }
-    }
+
     
   private void MemberUserSaveUpdateOperation(EnumContainer.CrudOperationType operationType){
         
@@ -444,17 +409,20 @@ public class MemberView extends javax.swing.JPanel {
                             if(userSaveUpdateCrudeOpetraion(operationType,user)){
                               AlertMessage.getInstance().showDialog(this,"Registration Succes");
                               loadItemTable();
-                              new HomePage(user).setVisible(true);
-                             CommandUIMethods.getInstance().cleanTextField(txtf_email,txtf_password,txtf_lastName,txtf_firstName,txtf_age,txtf_address);
-                             CommandUIMethods.getInstance().checkAllTextFieldIsfilled("gray",txtf_address,txtf_age,txtf_email,txtf_firstName,txtf_lastName,txtf_password); 
-                         }
+                              //new HomePage(user).setVisible(true);
+                             cleanTextField();
+                             clearTextFieldBorderColor();
+                             if(isNewResitration){
+                                 new HomePage(user).setVisible(true);
+                             }
+                            }
                              
                         }else{
                              AlertMessage.getInstance().showDialog(this,"Registration Succes");
                              loadItemTable();
                              new HomePage(user).setVisible(true);
-                             CommandUIMethods.getInstance().cleanTextField(txtf_email,txtf_password,txtf_lastName,txtf_firstName,txtf_age,txtf_address);
-                             CommandUIMethods.getInstance().checkAllTextFieldIsfilled("gray",txtf_address,txtf_age,txtf_email,txtf_firstName,txtf_lastName,txtf_password); 
+                             cleanTextField();
+                             clearTextFieldBorderColor();
                          
                             
                         }
@@ -473,7 +441,7 @@ public class MemberView extends javax.swing.JPanel {
     
     
     }
-    private boolean memberSaveUpdateCrudeOpetraion(EnumContainer.CrudOperationType operationType,MemberDto ob) throws Exception{
+  private boolean memberSaveUpdateCrudeOpetraion(EnumContainer.CrudOperationType operationType,MemberDto ob) throws Exception{
         
         switch (operationType) {
             case SAVE:
@@ -490,7 +458,7 @@ public class MemberView extends javax.swing.JPanel {
             
     }
     
-      private boolean userSaveUpdateCrudeOpetraion(EnumContainer.CrudOperationType operationType,UserDto ob) throws Exception{
+ private boolean userSaveUpdateCrudeOpetraion(EnumContainer.CrudOperationType operationType,UserDto ob) throws Exception{
         
         switch (operationType) {
             case SAVE:
@@ -512,6 +480,7 @@ public class MemberView extends javax.swing.JPanel {
            loadItemTable();
        }else{
            jP_viewpanel.setVisible(false);
+           isNewResitration =true;
        }
     }
 
@@ -558,7 +527,7 @@ public class MemberView extends javax.swing.JPanel {
               
         } catch (Exception e) {
             AlertMessage.getInstance().showDialog(this, "Error at loading data");
-                AlertMessage.getInstance().printMessage("check eror"+e.getMessage());
+                AlertMessage.getInstance().printMessage("check eror 1"+e.getMessage());
         }
     }
 
@@ -585,7 +554,7 @@ public class MemberView extends javax.swing.JPanel {
                 txtf_lastName.setText(memberDto.getLastName());
                 
             }else{
-            AlertMessage.getInstance().showDialog(this, "Item not found");
+            AlertMessage.getInstance().showDialog(this, "Member not found");
             }
             
             
@@ -595,4 +564,33 @@ public class MemberView extends javax.swing.JPanel {
         }
     }
 
+    private void deleteMember() {
+     
+            try {
+                
+                if(UserController.getInstance().delateUser(selectedMemberId).equals(EnumContainer.databaseDateStatus.SUCCESS.getValue())){
+                        
+                    if(MemberController.getInstance().delateMember(selectedMemberId).equals(EnumContainer.databaseDateStatus.SUCCESS.getValue())){
+                            AlertMessage.getInstance().showDialog(this, "Deleted successfully");
+                            cleanTextField();
+                            loadItemTable();
+                           
+                    }
+                    
+                }
+                
+            
+        } catch (Exception e) {
+            
+            AlertMessage.getInstance().printMessage("MemberView:deleteMember Error"+e.getMessage());
+        }
+    }
+
+    private void cleanTextField(){
+         CommandUIMethods.getInstance().cleanTextField(txtf_email,txtf_password,txtf_lastName,txtf_firstName,txtf_age,txtf_address);
+    }
+
+    private void clearTextFieldBorderColor() {
+            CommandUIMethods.getInstance().checkAllTextFieldIsfilled("gray",txtf_address,txtf_age,txtf_email,txtf_firstName,txtf_lastName,txtf_password); 
+    }
 }

@@ -13,9 +13,9 @@ import librarymanagement.services.SuperService;
  * @author ayesh
  */
 public interface BookBorrowingService extends SuperService {
-    String saveBookBorrowing(BorrowingBookDto dto)throws Exception;
-    String updateBookBorrowing(BorrowingBookDto dto)throws Exception;
-    String deleteBookBorrowing(String Id)throws Exception;
-    BorrowingBookDto getBookBorrowingById(String Id)throws Exception;
-    List<BorrowingBookDto> getBookBorrowingList()throws Exception;
+ public   String saveBookBorrowing(BorrowingBookDto dto)throws Exception;
+ public   String updateBookBorrowing(BorrowingBookDto dto)throws Exception;
+  public  String deleteBookBorrowing(String Id)throws Exception;
+  public  BorrowingBookDto getBookBorrowingById(String Id)throws Exception;
+ public   List<BorrowingBookDto> getBookBorrowingList()throws Exception;
 }

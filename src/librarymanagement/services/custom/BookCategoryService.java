@@ -13,9 +13,9 @@ import librarymanagement.services.SuperService;
  * @author ayesh
  */
 public interface BookCategoryService extends SuperService{
-    String saveCategory(BookCategoryDto dto)throws Exception;
-    String updateCategory(BookCategoryDto dto)throws Exception;
-    String deleteCategory(String Id)throws Exception;
-    BookCategoryDto getCategoryById(String Id)throws Exception;
-    List<BookCategoryDto> getCategoryList()throws Exception;
+  public  String saveCategory(BookCategoryDto dto)throws Exception;
+  public  String updateCategory(BookCategoryDto dto)throws Exception;
+  public   String deleteCategory(String Id)throws Exception;
+  public  BookCategoryDto getCategoryById(String Id)throws Exception;
+  public  List<BookCategoryDto> getCategoryList()throws Exception;
 }

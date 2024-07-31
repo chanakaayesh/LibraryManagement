@@ -6,6 +6,7 @@ package librarymanagement.services.custom.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import librarymanagement.alert.AlertMessage;
 import librarymanagement.dao.DaoFactory;
 import librarymanagement.dao.custome.BookCategoryDao;
 import librarymanagement.dto.BookCategoryDto;
@@ -23,7 +24,9 @@ public class BookCategoryServiceImpl implements BookCategoryService{
     @Override
     public String saveCategory(BookCategoryDto dto) throws Exception {
     
-        return categoryDao.create(categoryDtoToEntity(dto))? EnumContainer.databaseDateStatus.SUCCESS.getValue():EnumContainer.databaseDateStatus.FAIL.getValue();
+        BookCategoryEntity entity =categoryDtoToEntity(dto);
+                  AlertMessage.getInstance().printMessage("BookCategoryServiceImpl:create "+entity);
+        return categoryDao.create(entity)? EnumContainer.databaseDateStatus.SUCCESS.getValue():EnumContainer.databaseDateStatus.FAIL.getValue();
     }
 
     

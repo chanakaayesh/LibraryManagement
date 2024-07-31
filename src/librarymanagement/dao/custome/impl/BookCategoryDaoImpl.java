@@ -10,6 +10,7 @@ import librarymanagement.dao.CrudUtil;
 import librarymanagement.dao.custome.BookCategoryDao;
 import librarymanagement.entity.BookCategoryEntity;
 import java.sql.ResultSet;
+import librarymanagement.alert.AlertMessage;
 
 
 /**
@@ -21,6 +22,7 @@ public class BookCategoryDaoImpl implements BookCategoryDao{
     @Override
     public boolean create(BookCategoryEntity t) throws Exception {
    
+            AlertMessage.getInstance().printMessage("BookCategoryDaoImpl:create "+t);
              t.setCategoryId(
               CommonDbfunctions.getInstance().generateNewStringID("SELECT MAX(serialNumber) AS lastSerialNumber FROM bookCategories;","C")
              );
@@ -48,7 +50,10 @@ public class BookCategoryDaoImpl implements BookCategoryDao{
     public BookCategoryEntity get(String id) throws Exception {
       ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM bookCategories WHERE  categoryId = ? ", id);
       
-      return getEntity(rsl);
+        if(rsl.next()){
+            return getEntity(rsl);
+        }
+      return null;
         
         
     }
@@ -56,7 +61,7 @@ public class BookCategoryDaoImpl implements BookCategoryDao{
     @Override
     public ArrayList<BookCategoryEntity> getAll() throws Exception {
          ArrayList<BookCategoryEntity> categoryList = new ArrayList<>();
-         ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM bookCategories  ");
+         ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM bookCategories ");
          
          while(rsl.next()){
              categoryList.add(getEntity(rsl));
@@ -67,13 +72,12 @@ public class BookCategoryDaoImpl implements BookCategoryDao{
     
     private BookCategoryEntity getEntity(ResultSet rsl) throws Exception{
     
-          if(rsl.next()){
+       
       
             BookCategoryEntity entity = new BookCategoryEntity(rsl.getInt("serialNumber"), rsl.getString("categoryId"), rsl.getString("categoryName"));
               
           return entity;
-          }
-        return null;
+         
     }
     
     
