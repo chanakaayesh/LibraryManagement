@@ -50,8 +50,13 @@ public class BorrowingBookDaoImpl implements BorrowingBookDao{
         
         ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM borrowingBook WHERE borrowId = ?", id);
         
+        if(rsl !=null){
+            if(rsl.next()){
+                 return getEntity(rsl);
+            }
+        }
         
-        return getEntity(rsl);
+       return null;
     }
 
     @Override

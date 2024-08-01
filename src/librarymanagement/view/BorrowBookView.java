@@ -536,7 +536,7 @@ public class BorrowBookView extends javax.swing.JPanel {
                     ){
                 
           BorrowinDetailsDto borrowDetailsDto =new BorrowinDetailsDto(("BW"+String.valueOf(BorrowController.getInstance().getNextSerial())), 
-                        CommandUIMethods.getInstance().getReturnDate(), null, 0, lbl_bkDetails.getText());
+                        CommandUIMethods.getInstance().getReturnDate(), null, 0, txtf_bookId.getText());
                 addingBookList.add(borrowDetailsDto);
                  AlertMessage.getInstance().showDialog(this, "book added success fully ");
             }else{
@@ -569,9 +569,9 @@ public class BorrowBookView extends javax.swing.JPanel {
                 txtf_customer.setText(borrowingBookDto.getMemberId());
                 txtf_borrowDate.setText(CommandUIMethods.getInstance().getToDateString(borrowingBookDto.getBorrowingDate()));
                 
-               // loadBorrowDetailsTable(borrowingBookDto.getBorrowdetailListr());
-             
-                
+                loadBorrowDetailsTable(borrowingBookDto.getBorrowdetailListr());
+            
+                  
             }else{
             AlertMessage.getInstance().showDialog(this, "BookView not found");
             }
