@@ -25,6 +25,9 @@ public class BorrowBookView extends javax.swing.JPanel {
     /**
      * Creates new form BorrowBook
      */
+    
+    private int  borrowSerial =0;
+    private String borrowId ="";
     boolean isBorrowDetaildLoadFirdtTime =false;
     boolean isSearchBookFOund =false;
     List<BorrowinDetailsDto> addingBookList = new ArrayList<>();
@@ -141,6 +144,11 @@ public class BorrowBookView extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_borrowView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_borrowViewMouseClicked(evt);
+            }
+        });
         tbl_bkBorrowView.setViewportView(tbl_borrowView);
 
         tbl_borrowDetailTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -307,6 +315,11 @@ public class BorrowBookView extends javax.swing.JPanel {
         
         addBookList();
     }//GEN-LAST:event_btn_addBookActionPerformed
+
+    private void tbl_borrowViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_borrowViewMouseClicked
+        // TODO add your handling code here:
+        selectItemFromTable();
+    }//GEN-LAST:event_tbl_borrowViewMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -538,6 +551,36 @@ public class BorrowBookView extends javax.swing.JPanel {
             
     }
     
+      private void selectItemFromTable() {
     
+        try {
+            
+             String bId = tbl_borrowView.getValueAt(tbl_borrowView.getSelectedRow(), 1).toString();
+           // ItemDto itemDto = itemController.getById(itemId);
+            
+      
+            BorrowingBookDto borrowingBookDto = BorrowController.getInstance().getBorrowDetailsById(bId);
+          
+            if(borrowingBookDto !=null){
+               
+               borrowSerial =borrowingBookDto.getSerialNumber();
+               borrowId     =borrowingBookDto.getBorrowId();
+               
+                txtf_customer.setText(borrowingBookDto.getMemberId());
+                txtf_borrowDate.setText(CommandUIMethods.getInstance().getToDateString(borrowingBookDto.getBorrowingDate()));
+                
+               // loadBorrowDetailsTable(borrowingBookDto.getBorrowdetailListr());
+             
+                
+            }else{
+            AlertMessage.getInstance().showDialog(this, "BookView not found");
+            }
+            
+            
+        } catch (Exception e) {
+             AlertMessage.getInstance().printMessage("BookView:selectItemFromTable Error"+e.getMessage());
+           // AlertMessage.getInstance().showDialog(this, "MemberView:selectItemFromTable Error "+e.getMessage());
+        }
+    }
     
 }

@@ -197,7 +197,26 @@ public class BookBorrowingServiceImpl implements BookBorrowingService{
 
     @Override
     public BorrowingBookDto getBookBorrowingById(String Id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+               BorrowingBookEntity borrowingBookEntity= borrowingDao.get(Id);
+         List<BorrowinDetailsDto> detailsList = new ArrayList<>();
+
+        if (borrowingBookEntity.getBorrowId() != null) {
+           
+
+            List<BorrowinDetailsEntity> borrowDetails = borrowDetailDao.getByBorrowIdAll(borrowingBookEntity.getBorrowId());
+
+            if (borrowDetails != null) {
+                for (BorrowinDetailsEntity dto : borrowDetails) {
+                    if (dto != null) { // Add null check here
+                        detailsList.add(getboorwDetailDto(dto));
+                    }
+                }
+            } 
+
+          return  getBorrowDto(borrowingBookEntity, detailsList);
+        }
+        
+        return null;
     }
 
     @Override
