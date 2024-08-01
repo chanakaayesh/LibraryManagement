@@ -13,15 +13,15 @@ import java.util.Date;
  */
 public class BorrowinDetailsEntity {
     
-    private int id;
+   
     private String borrowId ;
     private Date dueDate ;
     private Date returnedDate ;
     private double fine ;
     private String bookId;
 
-    public BorrowinDetailsEntity(int id, String borrowId, Date dueDate, Date returnedDate, double fine, String bookId) {
-        this.id = id;
+    public BorrowinDetailsEntity( String borrowId, Date dueDate, Date returnedDate, double fine, String bookId) {
+        
         this.borrowId = borrowId;
         this.dueDate = dueDate;
         this.returnedDate = returnedDate;
@@ -29,13 +29,7 @@ public class BorrowinDetailsEntity {
         this.bookId = bookId;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getBorrowId() {
         return borrowId;
@@ -79,7 +73,7 @@ public class BorrowinDetailsEntity {
 
     @Override
     public String toString() {
-        return "BorrowinDetailsEntity{" + "id=" + id + ", borrowId=" + borrowId + ", dueDate=" + dueDate + ", returnedDate=" + returnedDate + ", fine=" + fine + ", bookId=" + bookId + '}';
+        return "BorrowinDetailsEntity{" + ", borrowId=" + borrowId + ", dueDate=" + dueDate + ", returnedDate=" + returnedDate + ", fine=" + fine + ", bookId=" + bookId + '}';
     }
 
     

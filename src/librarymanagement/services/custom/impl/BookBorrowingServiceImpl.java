@@ -29,7 +29,7 @@ public class BookBorrowingServiceImpl implements BookBorrowingService{
     
        private BorrowingBookDao borrowingDao = (BorrowingBookDao)DaoFactory.getInstance().getDao(EnumContainer.DaoType.BORROWINGBOOK);
        private BorrwoingBookDetailDao borrowDetailDao = (BorrwoingBookDetailDao)DaoFactory.getInstance().getDao(EnumContainer.DaoType.BORROWINGDETAIL);
-       private BookDao bookDao = (BookDao)DaoFactory.getInstance().getDao(EnumContainer.DaoType.BORROWINGDETAIL);
+       private BookDao bookDao = (BookDao)DaoFactory.getInstance().getDao(EnumContainer.DaoType.BOOK);
 
     @Override
     public String saveBookBorrowing(BorrowingBookDto dto) throws Exception {
@@ -38,7 +38,8 @@ public class BookBorrowingServiceImpl implements BookBorrowingService{
         
          try {
             connection.setAutoCommit(false);
-            String borrowId = borrowingDao.getMaxmemberID();
+           
+         //   String borrowId = borrowingDao.getMaxmemberID();
             BorrowingBookEntity borrowEntity = getBorrowEntity(dto);
             
             if(borrowingDao.create(borrowEntity)){
@@ -47,7 +48,7 @@ public class BookBorrowingServiceImpl implements BookBorrowingService{
                 
                 for(BorrowinDetailsDto borrowDetailsdto :dto.getBorrowdetailListr()){
                     
-                    borrowDetailsdto.setBorrowId(borrowId);
+                 //   borrowDetailsdto.setBorrowId(borrowId);
                     if(!borrowDetailDao.create(getboorwDetailEntity(borrowDetailsdto))){
                             isborrowingSaved = false;
                     }
@@ -120,7 +121,7 @@ public class BookBorrowingServiceImpl implements BookBorrowingService{
                 List<BorrowinDetailsDto> prevousBorrowdetailsList = new ArrayList<>();
                 for(BorrowinDetailsDto borrowDetailsdto :dto.getBorrowdetailListr()){
                     
-                  BorrowinDetailsDto prevousBorrowdetails=getboorwDetailDto(borrowDetailDao.get(borrowDetailsdto.getId()));
+                  BorrowinDetailsDto prevousBorrowdetails=getboorwDetailDto(borrowDetailDao.get(borrowDetailsdto.getBorrowId()));
                   prevousBorrowdetailsList.add(borrowDetailsdto);
                   if(borrowDetailDao.update(getboorwDetailEntity(borrowDetailsdto))){
                         
@@ -201,7 +202,29 @@ public class BookBorrowingServiceImpl implements BookBorrowingService{
 
     @Override
     public List<BorrowingBookDto> getBookBorrowingList() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      
+       List<BorrowingBookDto> borrowingBookDtosList = new ArrayList<>();
+       for(BorrowingBookEntity bbEntity:borrowingDao.getAll()){
+          List<BorrowinDetailsDto> detailsList = new ArrayList<>();
+
+        if (bbEntity.getBorrowId() != null) {
+            AlertMessage.getInstance().printMessage("getBookBorrowingList getting id is < " + bbEntity.getBorrowId() + " >");
+
+            List<BorrowinDetailsEntity> borrowDetails = borrowDetailDao.getByBorrowIdAll(bbEntity.getBorrowId());
+
+            if (borrowDetails != null) {
+                for (BorrowinDetailsEntity dto : borrowDetails) {
+                    if (dto != null) { // Add null check here
+                        detailsList.add(getboorwDetailDto(dto));
+                    }
+                }
+            } 
+
+            borrowingBookDtosList.add(getBorrowDto(bbEntity, detailsList));
+        }
+    }
+       
+       return borrowingBookDtosList;
     }
     
     
@@ -220,15 +243,25 @@ public class BookBorrowingServiceImpl implements BookBorrowingService{
    
    private BorrowinDetailsDto getboorwDetailDto(BorrowinDetailsEntity entity){
        
-       return new BorrowinDetailsDto(entity.getId(),entity.getBorrowId(), entity.getDueDate(), entity.getReturnedDate(), 
+       return new BorrowinDetailsDto(entity.getBorrowId(), entity.getDueDate(), entity.getReturnedDate(), 
                entity.getFine(), entity.getBookId());
    
    }
    
      private BorrowinDetailsEntity getboorwDetailEntity(BorrowinDetailsDto dto){
        
-       return new BorrowinDetailsEntity(0,dto.getBorrowId(), dto.getDueDate(), dto.getReturnedDate(), 
+       return new BorrowinDetailsEntity(dto.getBorrowId(), dto.getDueDate(), dto.getReturnedDate(), 
                dto.getFine(), dto.getBookId());
    
    }
+
+    @Override
+    public String getMaxmemberID() throws Exception {
+        return borrowingDao.getMaxmemberID();
+    }
+
+    @Override
+    public int getNextSerial() throws Exception {
+       return borrowingDao.getNextSerial();
+    }
 }

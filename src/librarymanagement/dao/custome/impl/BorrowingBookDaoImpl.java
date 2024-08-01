@@ -59,20 +59,29 @@ public class BorrowingBookDaoImpl implements BorrowingBookDao{
             ArrayList<BorrowingBookEntity> entityList = new ArrayList<>();
             
             ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM borrowingBook");
-            while(rsl.next()){
-                  entityList.add(getEntity(rsl));
+            if(rsl !=null){
+                while(rsl.next()){
+                    
+                    BorrowingBookEntity entity =getEntity(rsl);
+                    
+                    if(entity !=null){
+                        entityList.add(entity);
+                    }
+                  
             }
+            }
+            
     
             return entityList;
     }
 
     private BorrowingBookEntity getEntity(ResultSet rsl)throws Exception {
-            if(rsl.next()){
+         
             BorrowingBookEntity entity = new BorrowingBookEntity(rsl.getInt("serialNumber"), 
                     rsl.getString("borrowId"), rsl.getString("memberId"), rsl.getDate("borrowingDate"));
-        }
+       
     
-            return null;
+            return entity;
     }
 
     @Override
@@ -87,6 +96,20 @@ public class BorrowingBookDaoImpl implements BorrowingBookDao{
        
          AlertMessage.getInstance().printMessage("User geting mx id"+(maxId ==0? "BW"+1:"BW"+(maxId)));
         return  maxId ==0? "BW"+1:"BW"+(maxId);
+    }
+
+    @Override
+    public int getNextSerial() throws Exception {
+        int maxId=0;
+        ResultSet result =CrudUtil.excuteQuery("SELECT MAX(serialNumber) AS lastSerialNumber FROM borrowingBook;" );
+        
+        if(result.next()){
+            maxId   =result.getInt("lastSerialNumber");
+        }
+       
+         AlertMessage.getInstance().printMessage("User geting mx id"+(maxId ==0? "BW"+1:"BW"+(maxId)));
+        return  maxId ==0? 1:maxId+1;
+    
     }
     
 }

@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -85,4 +86,28 @@ public class CommandUIMethods {
 
         return sdf.format(date); // Return the dat
     }
+     
+   
+
+    public Date getReturnDate() {
+          Date today = new Date();
+
+    
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        
+        calendar.add(Calendar.DAY_OF_MONTH, 15);
+        Date dateAfter15Days = calendar.getTime();
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return getStringToDate(sdf.format(dateAfter15Days)) ; 
+    
+    }
+    public Date getTodayDate(){
+         Date today = new Date();
+         
+         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+     return getStringToDate(sdf.format(today)) ; 
+    }
+     
 }

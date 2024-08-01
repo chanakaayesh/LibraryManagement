@@ -35,10 +35,10 @@ public class LibraryManagement {
                // viewMemerUser();
               //  searchByIdmemerAndUser();
         
-     new LoginView().setVisible(true);
+    // new LoginView().setVisible(true);
    UserDto user = new UserDto("M9", "", "123", "");
          
- //  new HomePage(user).setVisible(true);
+  new HomePage(user).setVisible(true);
    /*     try {
             AlertMessage.getInstance().printMessage("getUserBy id "+UserController.getInstance().getUser("M16")); 
         } catch (Exception e) {

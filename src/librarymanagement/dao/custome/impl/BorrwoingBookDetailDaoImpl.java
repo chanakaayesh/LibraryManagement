@@ -23,7 +23,7 @@ public class BorrwoingBookDetailDaoImpl implements BorrwoingBookDetailDao{
     public boolean create(BorrowinDetailsEntity t) throws Exception {
     
         
-             return CrudUtil.executeUpdate("INSERT INTO borrowinDetails VALUE(?,?,?,?,?,?)", t.getBorrowId(),
+             return CrudUtil.executeUpdate("INSERT INTO borrowinDetails VALUE(?,?,?,?,?)", t.getBorrowId(),
                 t.getDueDate(),t.getReturnedDate(),t.getFine(),t.getBookId()
                 );}
 
@@ -31,7 +31,7 @@ public class BorrwoingBookDetailDaoImpl implements BorrwoingBookDetailDao{
     public boolean update(BorrowinDetailsEntity t) throws Exception {
 
            return CrudUtil.executeUpdate("UPDATE borrowinDetails SET   dueDate= ?, returnedDate= ?, fine = ?, bookId = ? WHERE id = ?", 
-                     t.getDueDate(),t.getReturnedDate(),t.getFine(),t.getBookId(),t.getId()
+                     t.getDueDate(),t.getReturnedDate(),t.getFine(),t.getBookId(),t.getBorrowId()
                      );
     }
 
@@ -59,23 +59,39 @@ public class BorrwoingBookDetailDaoImpl implements BorrwoingBookDetailDao{
     @Override
     public ArrayList<BorrowinDetailsEntity> getAll() throws Exception {
         ArrayList<BorrowinDetailsEntity> entityList = new ArrayList<>();
-     ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM borrowinDetails WHERE ");
+     ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM borrowinDetails ");
      while(rsl.next()){
          entityList.add(getEntity(rsl));
      }
      
      return entityList;
     }
-
-    private BorrowinDetailsEntity getEntity(ResultSet rsl) throws Exception{
-            if(rsl.next()){
-            BorrowinDetailsEntity entity = new BorrowinDetailsEntity(rsl.getInt("id"),rsl.getString("borrowId"),
-                    rsl.getDate("dueDate"), rsl.getDate("returnedDate"), rsl.getDouble("fine"), rsl.getString("bookId"));
-        
-                    return entity;
-        }
-            return null;
+    
+      @Override
+    public ArrayList<BorrowinDetailsEntity> getByBorrowIdAll(String id) throws Exception{
+  
+                 ArrayList<BorrowinDetailsEntity> entityList = new ArrayList<>();
+     ResultSet rsl = CrudUtil.excuteQuery("SELECT* FROM borrowinDetails WHERE  borrowId = ? ", id);
+     if(rsl !=null){
+      while(rsl.next()){
+         entityList.add(getEntity(rsl));
+     }
+     }
+    
+     
+     return entityList;
     }
 
    
+
+    private BorrowinDetailsEntity getEntity(ResultSet rsl) throws Exception{
+            
+            BorrowinDetailsEntity entity = new BorrowinDetailsEntity(rsl.getString("borrowId"),
+                    rsl.getDate("dueDate"), rsl.getDate("returnedDate"), rsl.getDouble("fine"), rsl.getString("bookId"));
+        
+                    return entity;
+       
+    }
+
+  
 }

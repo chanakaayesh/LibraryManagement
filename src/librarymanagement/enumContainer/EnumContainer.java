@@ -96,4 +96,18 @@ public class EnumContainer {
     public enum CrudOperationType{
         SAVE,UPDATE,DELETE;
     }
+    
+    public enum searchError{
+        UNABLE("Unable to get it");
+        
+        private String value;
+
+        private searchError(String value) {
+            this.value = value;
+        }
+        
+        public String getValue(){
+            return value;
+        }
+    }
 }

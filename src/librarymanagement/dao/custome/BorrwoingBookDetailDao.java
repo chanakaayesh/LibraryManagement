@@ -4,6 +4,7 @@
  */
 package librarymanagement.dao.custome;
 
+import java.util.ArrayList;
 import librarymanagement.dao.CrudDao;
 import librarymanagement.dao.SuperDao;
 import librarymanagement.entity.BorrowinDetailsEntity;
@@ -15,4 +16,5 @@ import librarymanagement.entity.BorrowinDetailsEntity;
  */
 public interface BorrwoingBookDetailDao extends CrudDao<BorrowinDetailsEntity, Object>{
     public boolean  deletBorrowDetail(String bookId,String borrowId) throws Exception;
+     public ArrayList<BorrowinDetailsEntity> getByBorrowIdAll(String id)throws Exception;
 }

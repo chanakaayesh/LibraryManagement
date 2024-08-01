@@ -193,6 +193,7 @@ public class HomePage extends javax.swing.JFrame {
 
     private void btn_borrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrowActionPerformed
         // TODO add your handling code here:
+        CommandUIMethods.getInstance().showView(jp_mainpanel, new BorrowBookView());
     }//GEN-LAST:event_btn_borrowActionPerformed
 
     private void btn_categoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_categoryActionPerformed

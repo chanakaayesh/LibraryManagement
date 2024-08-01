@@ -18,4 +18,6 @@ public interface BookBorrowingService extends SuperService {
   public  String deleteBookBorrowing(String Id)throws Exception;
   public  BorrowingBookDto getBookBorrowingById(String Id)throws Exception;
  public   List<BorrowingBookDto> getBookBorrowingList()throws Exception;
+ public String getMaxmemberID()throws Exception;
+  public int getNextSerial() throws Exception;
 }
